@@ -4,7 +4,7 @@ image: ghcr.io/pandablocks/pandablocks-ioc:0.2.2b3
 # the framework usually looks for the global start.sh
 iocConfig: /epics/ioc
 
-# use p38detector account ID and group ID for access to /dls/p38/data
+# use i22detector account ID and group ID for access to /dls/i22/data
 securityContext:
-  runAsUser: 37143
-  runAsGroup: 37143
+  runAsUser: 37946
+  runAsGroup: 37946

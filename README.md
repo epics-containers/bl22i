@@ -1,4 +1,4 @@
-Beamline BL38P: a Test epics-containers Beamline
+Beamline BL22I: a Test epics-containers Beamline
 ================================================
 
 This repository contains a specification of the IOC instances
@@ -9,7 +9,7 @@ implementation of a beamline for
 [epics-containers](https://github.com/epics-containers).
 
 
-Setting up your environment to use BL38P
+Setting up your environment to use BL22I
 ----------------------------------------
 
 Inside DLS you can access this beamline by setting up your environment
@@ -26,22 +26,22 @@ as follows:
 
    ```bash
    cd /tmp
-   curl -o ~/.local/bin/bl38p https://raw.githubusercontent.com/epics-containers/bl38p/main/environment.sh?token=$(date +%s)
+   curl -o ~/.local/bin/bl22i https://raw.githubusercontent.com/epics-containers/bl22i/main/environment.sh?token=$(date +%s)
    . ~/.bash_profile # adds ~/.local/bin to path
-   . bl38p
+   . bl22i
    ```
 
    You will be asked for your cluster credentials which are the same as your
    linux login. Note that if you have not used this cluster before you may need
    to ask the cloud team for access. To do so
    [use this form](https://jira.diamond.ac.uk/servicedesk/customer/portal/2/create/92)
-   and ask for access to namespace `p38-iocs` on cluster `k8s-p38`.
+   and ask for access to namespace `i22-iocs` on cluster `k8s-i22`.
 
    After logging out and back in again to pick up your profile changes you can
-   then reload the bl38p environment with the following command:
+   then reload the bl22i environment with the following command:
 
    ```bash
-   . bl38p
+   . bl22i
    ```
 
 1. Now if everything is working you should be able to see the IOC instances
@@ -50,7 +50,7 @@ as follows:
    ```bash
    $ ec ps
    IOC_NAME          VERSION     STATE     RESTARTS   STARTED
-   bl38p-ea-ioc-03   2023.10.2   Running   0          2023-10-21T19:10:33Z
+   bl22i-ea-ioc-03   2023.10.2   Running   0          2023-10-21T19:10:33Z
    ```
 
 1. You can also take a look at what other commands are available:
@@ -64,17 +64,17 @@ as follows:
 1. For a visual interface to the ioc namespace on the cluster you can use the
    kubernetes dashboard at this URL:
 
-   https://k8s-p38-dashboard.diamond.ac.uk/#/pod?namespace=p38-iocs
+   https://k8s-i22-dashboard.diamond.ac.uk/#/pod?namespace=i22-iocs
 
 
 How to Create a New Beamline or Accelerator Domain
 ==================================================
 
-The p38 beamline is a reference implementation of a DLS beamline so we use it
+The i22 beamline is a reference implementation of a DLS beamline so we use it
 as a template for other beamlines and accelerator domains.
 
 To create a new domain take a copy of this repository and change the
-p38 and 38p references to the name of your domain. In the following example
+i22 and 22i references to the name of your domain. In the following example
 we will create the repository for the beamline BL16I.
 
 1. Create a new completely blank repository in gitlab
@@ -90,10 +90,10 @@ we will create the repository for the beamline BL16I.
    repository using the command sequence below.
 
 ```bash
-git clone git@github.com:epics-containers/bl38p.git -b 2023.10.3
-mv bl38p bl16i
+git clone git@github.com:epics-containers/bl22i.git -b 2023.10.3
+mv bl22i bl16i
 cd bl16i
-sed -i -e s/p38/i16/g -e s/38p/16i/g -e s/38P/16I/g $(find * -type f)
+sed -i -e s/i22/i16/g -e s/22i/16i/g -e s/22I/16I/g $(find * -type f)
 git checkout -b main
 git commit -am'switch to i16'
 # the repo uri copied from above steps is pasted below

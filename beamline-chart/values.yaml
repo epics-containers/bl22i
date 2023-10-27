@@ -1,10 +1,10 @@
-# default values for all IOCs on bl38p
+# default values for all IOCs on bl22i
 # see end of file for values that may be overridden per individual IOC
 
-beamline: bl38p
+beamline: bl22i
 # we use the default service account in the namespace so leave this out
 # if you need to specify an alternative then uncomment below
-# serviceAccountName: k8s-p38-iocs
+# serviceAccountName: k8s-i22-iocs
 
 # useHostNetwork - use host network for IOC - required for Channel Access
 # to work outside of the cluster
@@ -37,8 +37,8 @@ globalenv:
 # reasonable defaults for securityContext
 securityContext:
   allowPrivilegeEscalation: false
-  # IMPORTANT if you want access to /dls/p38/data then the following should
-  # be set to p38detector account ID and group ID
+  # IMPORTANT if you want access to /dls/i22/data then the following should
+  # be set to i22detector account ID and group ID
   # runAsUser: 37143
   # runAsGroup: 37143
   # capabilities:
@@ -66,12 +66,12 @@ dataVolume:
   # A path on the host machine to write data into. Also used as the path that the
   # pvc or hostPath will be mounted at so that users need not be confused about
   # inside/outside container paths.
-  hostPath: /dls/p38/data/
+  hostPath: /dls/i22/data/
 
 # use the shared PVC for publishing opi files over http (see services/opis)
-opisClaim: bl38p-opi-claim
+opisClaim: bl22i-opi-claim
 # use the shared PVC autosave files (comment out for no autosave)
-autosaveClaim: bl38p-autosave-claim
+autosaveClaim: bl22i-autosave-claim
 
 # default resource limits
 resources:
