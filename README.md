@@ -1,12 +1,8 @@
-Beamline BL22I: a Test epics-containers Beamline
-================================================
+Beamline BL22I Non Crystalline Diffraction
+==========================================
 
 This repository contains a specification of the IOC instances
-running within a domain at **Diamond Light Source**.
-
-This is a **Diamond Light Source** specific reference
-implementation of a beamline for
-[epics-containers](https://github.com/epics-containers).
+running on the I22 beamline at **Diamond Light Source**.
 
 
 Setting up your environment to use BL22I
@@ -66,63 +62,3 @@ as follows:
 
    https://k8s-i22-dashboard.diamond.ac.uk/#/pod?namespace=i22-iocs
 
-
-How to Create a New Beamline or Accelerator Domain
-==================================================
-
-The i22 beamline is a reference implementation of a DLS beamline so we use it
-as a template for other beamlines and accelerator domains.
-
-To create a new domain take a copy of this repository and change the
-i22 and 22i references to the name of your domain. In the following example
-we will create the repository for the beamline BL16I.
-
-1. Create a new completely blank repository in gitlab
-
-   - go to https://gitlab.diamond.ac.uk/controls/containers/beamline
-   - click on the "New Project" button and choose Blank Project
-   - give the project a name, e.g. `bl16i`
-   - uncheck `create readme`
-   - click on the "Create Project" button
-   - copy the repo URI from the example in `Create a new repository`
-
-2. Clone this template repository and replace its remote with the new
-   repository using the command sequence below.
-
-```bash
-git clone git@github.com:epics-containers/bl22i.git -b 2023.10.3
-mv bl22i bl16i
-cd bl16i
-sed -i -e s/i22/i16/g -e s/22i/16i/g -e s/22I/16I/g $(find * -type f)
-git checkout -b main
-git commit -am'switch to i16'
-# the repo uri copied from above steps is pasted below
-git remote set-url origin git@gitlab.diamond.ac.uk:controls/containers/beamline/bl16i.git
-git push -u origin main
-```
-
-3. Implement your own IOC instances for the new domain by adding subfolders
-   to /iocs. There will be example IOCs from the beamline you copied already in
-   here, you could choose to delete these or use them as a starting point for
-   your own IOCs.
-
-   Each IOC subfolder should contain the following:
-
-   - `values.yaml` - this is the helm chart values file for the IOC instance.
-     At a minimum it should contain the URI of the generic IOC container image
-     to use e.g.:
-
-     ```yaml
-     image: ghcr.io/epics-containers/ioc-adsimdetector-linux-runtime:23.10.1
-     ```
-
-     This yaml file may also override any of the settings in the beamline
-     helm chart's values file. See [values.yaml](beamline-chart/values.yaml)
-     for the full list of settings that can be overridden.
-
-   - `config` - this folder will be mounted into the Generic IOC at runtime at
-     `/epics/ioc/config`. This folder will contain the required files to make
-      the generic IOC into a specific IOC instance.
-
-      For the details of the contents of the config folder see the default
-      [start.sh](https://github.com/epics-containers/blxxi-template/blob/main/iocs/blxxi-ea-ioc-01/config/start.sh)
